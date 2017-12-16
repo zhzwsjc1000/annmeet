@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.annmeet.mapper.CustInfoMapper">
+  <resultMap id="BaseResultMap" type="com.cn.annmeet.domain.CustInfo">
+    <id column="custId" jdbcType="VARCHAR" property="custId" />
+    <result column="custName" jdbcType="VARCHAR" property="custName" />
+    <result column="empolyId" jdbcType="VARCHAR" property="empolyId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="idNum" jdbcType="INTEGER" property="idNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    custId, custName, empolyId, mobile, avatarUrl, idNum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_custinfo
+    where custId = #{custId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_custinfo
+    where custId = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.annmeet.domain.CustInfo">
+    insert into t_custinfo (custId, custName, empolyId, 
+      mobile, avatarUrl, idNum
+      )
+    values (#{custId,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{empolyId,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{idNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.annmeet.domain.CustInfo">
+    insert into t_custinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        custId,
+      </if>
+      <if test="custName != null">
+        custName,
+      </if>
+      <if test="empolyId != null">
+        empolyId,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="avatarUrl != null">
+        avatarUrl,
+      </if>
+      <if test="idNum != null">
+        idNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="empolyId != null">
+        #{empolyId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null">
+        #{idNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.annmeet.domain.CustInfo">
+    update t_custinfo
+    <set>
+      <if test="custName != null">
+        custName = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="empolyId != null">
+        empolyId = #{empolyId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null">
+        idNum = #{idNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where custId = #{custId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.annmeet.domain.CustInfo">
+    update t_custinfo
+    set custName = #{custName,jdbcType=VARCHAR},
+      empolyId = #{empolyId,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
+      idNum = #{idNum,jdbcType=INTEGER}
+    where custId = #{custId,jdbcType=VARCHAR}
+  </update>
+</mapper>
