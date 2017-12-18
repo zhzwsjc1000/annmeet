@@ -35,10 +35,4 @@ public class ReflectUtil {
 		}
 		return obj;
 	}
-	public static void main(String[] args) throws Exception {
-		String[] strs = {"20170506","张旋","17065","13071850611","https//:www.baidu.com","36232119890103811X"};
-		Object obj =StrsTurnObject(strs,CustInfo.class);
-		CustInfo cust =(CustInfo) obj;
-		System.out.println("1111111111111"+cust.getAvatarUrl());
-	}
 }
