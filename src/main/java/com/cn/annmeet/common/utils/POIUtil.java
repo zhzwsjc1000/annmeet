@@ -3,14 +3,19 @@ package com.cn.annmeet.common.utils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.cn.annmeet.domain.CustInfo;
 
 public class POIUtil {
 	private static Logger logger =Logger.getLogger(POIUtil.class);
@@ -19,7 +24,42 @@ public class POIUtil {
 	public static List<String[]> readExcel(MultipartFile file) throws IOException{
 		checkFile(file);
 		Workbook workbook =getWorkBook(file);
-		return null;
+		List<String[]> list= new ArrayList<String[]>();
+		if(workbook!=null) {
+			 for(int sheetNum = 0;sheetNum < workbook.getNumberOfSheets();sheetNum++){  
+	                //获得当前sheet工作表  
+	                Sheet sheet = workbook.getSheetAt(sheetNum);  
+	                if(sheet == null){  
+	                    continue;  
+	                }  
+	                //获得当前sheet的开始行  
+	                int firstRowNum  = sheet.getFirstRowNum();  
+	                //获得当前sheet的结束行  
+	                int lastRowNum = sheet.getLastRowNum();  
+	                //循环除了第一行的所有行  
+	                for(int rowNum = firstRowNum+1;rowNum <= lastRowNum;rowNum++){  
+	                    //获得当前行  
+	                    Row row = sheet.getRow(rowNum);  
+	                    if(row == null){  
+	                        continue;  
+	                    }  
+	                    //获得当前行的开始列  
+	                    int firstCellNum = row.getFirstCellNum();  
+	                    //获得当前行的列数  
+	                    int lastCellNum = row.getPhysicalNumberOfCells();  
+	                    String[] cells = new String[row.getPhysicalNumberOfCells()];
+//	                    CustInfo custInfo = new CustInfo();  
+	                    //循环当前行  
+	                    for(int cellNum = firstCellNum; cellNum < lastCellNum;cellNum++){  
+	                        Cell cell = row.getCell(cellNum);  
+	                        cells[cellNum] = getCellValue(cell);  
+	                    }  
+	                    list.add(cells);  
+	                }  
+	            }  
+	            workbook.close();  
+		}
+		return list;
 	}
 	 public static void checkFile(MultipartFile file) throws IOException{  
 	        //判断文件是否存在  

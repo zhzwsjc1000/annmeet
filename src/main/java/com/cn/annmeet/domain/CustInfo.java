@@ -11,7 +11,7 @@ public class CustInfo {
 
     private String avatarUrl;
 
-    private Integer idNum;
+    private String idNum;
 
     public String getCustId() {
         return custId;
@@ -53,11 +53,11 @@ public class CustInfo {
         this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
-    public Integer getIdNum() {
+    public String getIdNum() {
         return idNum;
     }
 
-    public void setIdNum(Integer idNum) {
-        this.idNum = idNum;
+    public void setIdNum(String idNum) {
+        this.idNum = idNum == null ? null : idNum.trim();
     }
 }

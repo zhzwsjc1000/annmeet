@@ -7,7 +7,7 @@
     <result column="empolyId" jdbcType="VARCHAR" property="empolyId" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
-    <result column="idNum" jdbcType="INTEGER" property="idNum" />
+    <result column="idNum" jdbcType="VARCHAR" property="idNum" />
   </resultMap>
   <sql id="Base_Column_List">
     custId, custName, empolyId, mobile, avatarUrl, idNum
@@ -27,7 +27,7 @@
       mobile, avatarUrl, idNum
       )
     values (#{custId,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{empolyId,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{idNum,jdbcType=INTEGER}
+      #{mobile,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cn.annmeet.domain.CustInfo">
@@ -69,7 +69,7 @@
         #{avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="idNum != null">
-        #{idNum,jdbcType=INTEGER},
+        #{idNum,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -89,7 +89,7 @@
         avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="idNum != null">
-        idNum = #{idNum,jdbcType=INTEGER},
+        idNum = #{idNum,jdbcType=VARCHAR},
       </if>
     </set>
     where custId = #{custId,jdbcType=VARCHAR}
@@ -100,7 +100,7 @@
       empolyId = #{empolyId,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
-      idNum = #{idNum,jdbcType=INTEGER}
+      idNum = #{idNum,jdbcType=VARCHAR}
     where custId = #{custId,jdbcType=VARCHAR}
   </update>
 </mapper>
